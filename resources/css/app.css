@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import 'tailwindcss';
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@source "../views/**/*.blade.php";
+@source "../js/**/*.svelte";
+
+html {
+    height: 100dvh;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
