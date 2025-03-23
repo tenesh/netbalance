@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { page } from '@inertiajs/svelte'
+    import { page } from '@inertiajs/svelte';
 
-    console.log($page.props.user)
+    console.log($page.props.user);
 </script>
 
 <div>Admin Dashboard</div>

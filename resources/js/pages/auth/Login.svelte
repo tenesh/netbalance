@@ -6,7 +6,7 @@
     const form = useForm({
         email: null,
         password: null,
-        remember: false
+        remember: false,
     });
 
     function submit(e) {
@@ -58,10 +58,7 @@
                 </div>
                 <div class="flex w-full justify-between">
                     <div class="flex gap-2">
-                        <input type="checkbox"
-                            name="remember"
-                            id="remember"
-                            bind:checked={$form.remember} />
+                        <input type="checkbox" name="remember" id="remember" bind:checked={$form.remember} />
                         <label for="remember"> Keep me logged in </label>
                     </div>
                     <a
@@ -83,16 +80,10 @@
                 class="flex flex-col text-center w-full max-w-md mt-auto gap-2 md:gap-0 md:flex-row md:divide-x md:divide-secondary-lighter"
             >
                 <p class="text-sm text-secondary-main hover:text-secondary-dark w-full">&#169; 2025 netbalance</p>
-                <a
-                    href={route('policy')}
-                    class="text-sm text-secondary-main hover:text-secondary-dark w-full"
-                >
+                <a href={route('policy')} class="text-sm text-secondary-main hover:text-secondary-dark w-full">
                     Privacy Policy
                 </a>
-                <a
-                    href={route('terms')}
-                    class="text-sm text-secondary-main hover:text-secondary-dark w-full"
-                >
+                <a href={route('terms')} class="text-sm text-secondary-main hover:text-secondary-dark w-full">
                     Terms & Conditions
                 </a>
             </div>
@@ -113,11 +104,11 @@
 </AuthLayout>
 
 <style lang="css">
-	.hero {
-		background-color: rgb(245, 242, 250);
-	}
+    .hero {
+        background-color: rgb(245, 242, 250);
+    }
 
-	.hero-image {
-		background-image: url('/images/dashboard-customer.svg');
-	}
+    .hero-image {
+        background-image: url('/images/dashboard-customer.svg');
+    }
 </style>
