@@ -22,7 +22,7 @@ return [
     'allowed_origins' => array_filter([
         env('VITE_APP_URL'),
         env('APP_URL'),
-        env('APP_PUBLIC_URL'),
+        env('APP_FRONTEND_URL'),
     ]),
 
     'allowed_origins_patterns' => [],

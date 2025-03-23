@@ -53,7 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-    'public_url' => env('APP_PUBLIC_URL', 'http://localhost'),
+    'frontend_url' => env('APP_FRONTEND_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -123,4 +123,21 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Admin Account (Seeder)
+    |--------------------------------------------------------------------------
+    |
+    | These values are used when seeding the application with a default
+    | Super Administrator account. You can define the email and password
+    | for this initial account in your environment (.env) file.
+    |
+    | IMPORTANT: This account is only created if it does not already exist.
+    |            It is intended for first-time setup only.
+    |
+    */
+
+    'default_admin_email' => env('DEFAULT_ADMIN_EMAIL'),
+    'default_admin_password' => env('DEFAULT_ADMIN_PASSWORD')
 ];

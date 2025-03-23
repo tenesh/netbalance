@@ -11,10 +11,8 @@ class EnsureCustomer
     public function handle(Request $request, Closure $next): Response
     {
 
-        $user = $request->user();
-
-        if (!$user || $user->is_admin) {
-            abort(403, 'Access denied. Customers only.');
+        if ($request->user()->isAdmin()) {
+            return redirect()->route('admin.dashboard');
         }
 
         return $next($request);

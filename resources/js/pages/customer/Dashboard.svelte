@@ -1,4 +1,7 @@
 <script lang="ts">
+    import { page } from '@inertiajs/svelte'
+
+    console.log($page.props.user)
 </script>
 
-<div>Dashboard</div>
+<div>Customer Dashboard</div>

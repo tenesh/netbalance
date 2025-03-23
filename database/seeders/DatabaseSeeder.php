@@ -7,9 +7,12 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
 
     public function run(): void
     {
-        // TODO: Implement run() method.
+        $this->call([
+            AdminUserSeeder::class,
+        ]);
     }
 }
