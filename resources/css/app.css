@@ -1,16 +1,240 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import 'tailwindcss';
-
-@plugin "@tailwindcss/forms";
-@plugin "@tailwindcss/typography";
 
 @source "../views/**/*.blade.php";
 @source "../js/**/*.svelte";
 
-html {
-    height: 100dvh;
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --font-display: 'Archivo', 'sans-serif';
+
+    /* Primary Container / Primary Fixed */
+    --color-primary-lighter: oklch(91.63% 0.042 285.54);
+    /* Primary Fixed Dim */
+    --color-primary-light: oklch(83.14% 0.0856 280.71);
+    /* Primary */
+    --color-primary-main: oklch(57.94% 0.1746 275.46);
+    /* On Primary Fixed Variant */
+    --color-primary-dark: oklch(45.27% 0.1809 272.64);
+    /* On Primary Container / On Primary Fixed */
+    --color-primary-darker: oklch(24.09% 0.1572 264.2);
+
+    /* Secondary Container / Secondary Fixed */
+    --color-secondary-lighter: oklch(91.63% 0.042 285.54);
+    /* Secondary Fixed Dim */
+    --color-secondary-light: oklch(82.98% 0.0446 283.96);
+    /* Secondary */
+    --color-secondary-main: oklch(48.4% 0.0449 281.38);
+    /* On Secondary Fixed Variant */
+    --color-secondary-dark: oklch(39.96% 0.0438 280.8);
+    /* On Secondary Container / On Secondary Fixed */
+    --color-secondary-darker: oklch(22.76% 0.0447 276.6);
+
+    /* Surface / Surface Bright */
+    --color-grey-50: oklch(98.34% 0.0097 305.41);
+    /* Surface Container Low */
+    --color-grey-100: oklch(96.57% 0.0111 303.11);
+    /* Surface Container */
+    --color-grey-200: oklch(94.96% 0.0095 299.24);
+    /* Surface Container High */
+    --color-grey-300: oklch(93.26% 0.0112 303.11);
+    /* Surface Container Highest */
+    --color-grey-400: oklch(91.35% 0.0074 312.3);
+    /* Surface Container Highest */
+    --color-grey-500: oklch(88.89% 0.0097 299.22);
+    /* Outline Variant */
+    --color-grey-600: oklch(82.83% 0.0153 294.41);
+    /* Outline */
+    --color-grey-700: oklch(57.01% 0.0152 290.51);
+    /* On Surface Variant */
+    --color-grey-800: oklch(39.75% 0.015 285.7);
+    /* On Surface */
+    --color-grey-900: oklch(22.38% 0.0077 285.76);
+
+    --color-white: oklch(100% 0 0);
+    --background-default: oklch(100% 0 0);
+
+    /* On Success / Success Container Low */
+    --color-success-lighter: oklch(94.66% 0.1005 141.47);
+    /* Success Container High / Outline */
+    --color-success-light: oklch(90.36% 0.1086 142.02);
+    /* Success */
+    --color-success-main: oklch(55.34% 0.1574 144.82);
+    /* On Container/ Success Container */
+    --color-success-dark: oklch(46.8% 0.1459 145.3);
+    /* On Container Low / Container High */
+    --color-success-darker: oklch(29.96% 0.0934 145.29);
+
+    /* On Info / Info Container Low */
+    --color-info-lighter: oklch(95.36% 0.0378 213.06);
+    /* Info Container High / Outline */
+    --color-info-light: oklch(90.7% 0.0793 211.91);
+    /* Info */
+    --color-info-main: oklch(55.92% 0.0969 210.61);
+    /* On Container/ Info Container */
+    --color-info-dark: oklch(47.43% 0.082257 210.794);
+    /* On Container Low / Container High */
+    --color-info-darker: oklch(30.52% 0.0529 210.66);
+
+    /* On Warning / Warning Container Low */
+    --color-warning-lighter: oklch(95.91% 0.0253 59.92);
+    /* Warning Container High / Outline */
+    --color-warning-light: oklch(91.62% 0.0556 62.65);
+    /* Warning */
+    --color-warning-main: oklch(57.83% 0.130755 64.0454);
+    /* On Container/ Warning Container */
+    --color-warning-dark: oklch(48.97% 0.111 63.69);
+    /* On Container Low / Container High */
+    --color-warning-darker: oklch(31.45% 0.071372 63.6016);
+
+    /* On Error / Error Container Low */
+    --color-error-lighter: oklch(95.96% 0.02 28.9);
+    /* Error Container High / Outline */
+    --color-error-light: oklch(91.83% 0.041771 25.2259);
+    /* Error */
+    --color-error-main: oklch(59.39% 0.2045 27.82);
+    /* On Container/ Error Container */
+    --color-error-dark: oklch(50.6% 0.1927 27.7);
+    /* On Container Low / Container High */
+    --color-error-darker: oklch(32.75% 0.1336 27.32);
 }
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+html,
+body,
+#app {
+    height: 100dvh;
+    width: 100dvw;
+}
+
+input,
+select,
+button,
+textarea {
+    @apply rounded-lg;
+}
+
+label,
+input,
+select {
+    @apply mb-1 text-sm;
+}
+
+label {
+    @apply font-medium;
+}
+
+button {
+    min-width: 120px;
+    @apply cursor-pointer px-3 py-1.5;
+}
+
+.input-error {
+    @apply bg-error-lighter text-error-main mt-1 rounded-md px-3 py-1.5 text-sm;
+}
+
+h1 {
+    font-size: 40px;
+    line-height: 44px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+h4 {
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+h6 {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+.subtitle1 {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+.subtitle2 {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+.body1 {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    font-weight: 400;
+}
+
+.body2 {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0px;
+    font-weight: 400;
+}
+
+.caption {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    font-weight: 400;
+}
+
+.caption1 {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    font-weight: 500;
+}
+
+/* Override default focus colors for tailwindcss-forms https://github.com/tailwindlabs/tailwindcss-forms */
+[type='text']:focus,
+input:where(:not([type])):focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+    --tw-ring-color: var(--color-primary-main);
+    border-color: var(--tw-ring-color);
 }
