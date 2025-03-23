@@ -1,13 +1,17 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "tenesh/netbalance",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Streamline operations, optimize inventory, and gain powerful insights—all from one intuitive platform.",
     "keywords": [
         "laravel",
-        "framework"
+        "framework",
+        "inventory",
+        "stock",
+        "management",
+        "warehouse"
     ],
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "require": {
         "php": "^8.2",
         "inertiajs/inertia-laravel": "^2.0",
