@@ -10,15 +10,24 @@ export default defineConfig({
             input: [
                 'resources/js/app.ts'
             ],
-            refresh: true,
+            refresh: true
         }),
         tailwindcss(),
-        svelte(),
+        svelte()
     ],
     resolve: {
         alias: {
             $lib: '/resources/js/lib',
-            'ziggy-js': path.resolve('vendor/tightenco/ziggy'),
-        },
+            'ziggy-js': path.resolve('vendor/tightenco/ziggy')
+        }
     },
+    server: {
+        cors: {
+            origin: ['http://netbalance.local', 'http://app.netbalance.local'],
+            credentials: true
+        },
+        hmr: {
+            host: 'localhost'
+        }
+    }
 });

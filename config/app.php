@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'public_url' => env('APP_PUBLIC_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------

@@ -1,6 +1,18 @@
 <script lang="ts">
     import AuthLayout from '$lib/layouts/AuthLayout.svelte';
     import { route } from 'ziggy-js';
+    import { useForm } from '@inertiajs/svelte';
+
+    const form = useForm({
+        email: null,
+        password: null,
+        remember: false,
+    });
+
+    function submit(e) {
+        e.preventDefault();
+        $form.post('/login');
+    }
 </script>
 
 <AuthLayout>
@@ -12,13 +24,21 @@
                     Back in action. Let’s move your business forward.
                 </p>
             </div>
-            <form action="" class="flex flex-col w-full max-w-md gap-5">
+            <form onsubmit={submit} class="flex flex-col w-full max-w-md gap-5">
                 <div class="flex flex-col w-full">
                     <label for="email" class="w-full"> Email </label>
-                    <input type="text" name="email" id="email" placeholder="example@company.com" />
-                    <div class="input-error">
-                        <p>Email address is required.</p>
-                    </div>
+                    <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        placeholder="example@company.com"
+                        bind:value={$form.email}
+                    />
+                    {#if $form.errors.email}
+                        <div class="input-error">
+                            <p>{$form.errors.email}</p>
+                        </div>
+                    {/if}
                 </div>
                 <div class="flex flex-col w-full">
                     <label for="password" class="w-full"> Password </label>
@@ -28,15 +48,33 @@
                         name="password"
                         id="password"
                         placeholder="Enter your password"
+                        bind:value={$form.password}
                     />
+                    {#if $form.errors.password}
+                        <div class="input-error">
+                            <p>{$form.errors.password}</p>
+                        </div>
+                    {/if}
+                </div>
+                <div class="flex w-full justify-between">
+                    <div class="flex gap-2">
+                        <input type="checkbox" name="remember" id="remember" bind:checked={$form.remember} />
+                        <label for="remember"> Keep me logged in </label>
+                    </div>
                     <a
                         href={route('password.request')}
-                        class="text-sm text-primary-main hover:text-primary-dark underline self-end mt-1"
+                        class="text-sm text-primary-main hover:text-primary-dark underline self-end mb-1"
                     >
                         Forgot password?
                     </a>
                 </div>
-                <button class="bg-primary-main text-white hover:bg-primary-dark self-start"> Sign In </button>
+                <button
+                    class="bg-primary-main text-white hover:bg-primary-dark self-start"
+                    type="submit"
+                    disabled={$form.processing}
+                >
+                    Sign In
+                </button>
             </form>
             <div
                 class="flex flex-col text-center w-full max-w-md mt-auto gap-2 md:gap-0 md:flex-row md:divide-x md:divide-secondary-lighter"

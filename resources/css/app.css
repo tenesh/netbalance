@@ -108,11 +108,19 @@ body,
     width: 100dvw;
 }
 
-input,
+input:not([type='checkbox']),
 select,
 button,
 textarea {
     @apply rounded-lg;
+}
+
+input:is([type='checkbox']) {
+    @apply rounded-sm;
+}
+
+input[type='checkbox']:checked {
+    @apply bg-primary-main;
 }
 
 label,
@@ -221,6 +229,8 @@ h6 {
 /* Override default focus colors for tailwindcss-forms https://github.com/tailwindlabs/tailwindcss-forms */
 [type='text']:focus,
 input:where(:not([type])):focus,
+[type='checkbox']:focus,
+[type='radio']:focus,
 [type='email']:focus,
 [type='url']:focus,
 [type='password']:focus,
