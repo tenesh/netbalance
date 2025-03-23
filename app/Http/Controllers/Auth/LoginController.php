@@ -23,6 +23,7 @@ class LoginController extends Controller
 
         $request->validate([
             'email' => ['required', 'email'],
+            // TODO Move this to user creation controller as login step do not need to verify password strengths
             'password' => [
                 'required',
                 'string',
