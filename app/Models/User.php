@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AdminRole;
 use App\Enums\UserType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -29,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'type',
         'role',
+        'avatar',
     ];
 
     protected $hidden = [
@@ -57,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => ucfirst($value),
+            get: fn (string $value) => strtolower($value),
             set: fn (string $value) => strtolower($value),
         );
     }
@@ -83,6 +85,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return Attribute::make(
             get: fn (string $value) => ucfirst($value),
             set: fn (string $value) => strtolower($value),
+        );
+    }
+
+    protected function role(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => AdminRole::tryFrom($value)->label(),
         );
     }
 

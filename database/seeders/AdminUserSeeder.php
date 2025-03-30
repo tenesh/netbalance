@@ -19,17 +19,21 @@ class AdminUserSeeder extends Seeder
 
         $email = config('app.default_admin_email');
         $password = config('app.default_admin_password');
+        $name = config('app.default_admin_name');
+        $firstname = config('app.default_admin_firstname');
+        $lastname = config('app.default_admin_lastname');
 
         User::firstOrCreate(
             ['email' => $email],
             [
                 'id' => Str::uuid(),
-                'first_name' => 'Super',
+                'first_name' => $firstname,
                 'middle_name' => '',
-                'last_name' => 'Admin',
-                'name' => 'Super Administrator',
+                'last_name' => $lastname,
+                'name' => $name,
                 'email_verified_at' => now(),
                 'password' => Hash::make($password),
+                'avatar' => null,
                 'type' => UserType::ADMIN->value,
                 'role' => AdminRole::SUPER_ADMINISTRATOR->value,
                 'tenant_id' => null,
