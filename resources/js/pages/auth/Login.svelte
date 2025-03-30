@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AuthLayout from '$lib/layouts/AuthLayout.svelte';
+    import AuthLayout from '@/modules/shared/layouts/AuthLayout.svelte';
     import { route } from 'ziggy-js';
     import { useForm } from '@inertiajs/svelte';
 
@@ -69,7 +69,7 @@
                     </a>
                 </div>
                 <button
-                    class="bg-primary-main text-white hover:bg-primary-dark self-start"
+                    class="bg-primary-main text-white hover:bg-primary-dark self-start px-3 py-1.5 min-w-[120px]"
                     type="submit"
                     disabled={$form.processing}
                 >

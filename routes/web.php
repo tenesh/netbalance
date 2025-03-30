@@ -33,5 +33,12 @@ Route::domain(parse_url(config('app.frontend_url'), PHP_URL_HOST))->group(functi
     Route::prefix('admin')->middleware(['auth', 'ensure_admin'])->group(function () {
 
         Route::get('/', fn() => Inertia::render('admin/Dashboard'))->name('admin.dashboard');
+        Route::get('/tenants', fn() => Inertia::render('admin/Dashboard'))->name('admin.tenants');
+        Route::get('/users', fn() => Inertia::render('admin/Dashboard'))->name('admin.users');
+        Route::get('/billing', fn() => Inertia::render('admin/Dashboard'))->name('admin.billing');
+        Route::get('/import-export', fn() => Inertia::render('admin/Dashboard'))->name('admin.import-export');
+        Route::get('/logs', fn() => Inertia::render('admin/Dashboard'))->name('admin.logs');
+        Route::get('/settings', fn() => Inertia::render('admin/Dashboard'))->name('admin.settings');
+        Route::get('/logout', fn() => Inertia::render('admin/Dashboard'))->name('admin.logout');
     });
 });

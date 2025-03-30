@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { page } from '@inertiajs/svelte';
-
-    console.log($page.props.user);
+    import AdminLayout from '@/modules/admin/layouts/AdminLayout.svelte';
 </script>
 
-<div>Admin Dashboard</div>
+<AdminLayout>
+    <div class="w-full h-full p-6">Admin Dashboard</div>
+</AdminLayout>

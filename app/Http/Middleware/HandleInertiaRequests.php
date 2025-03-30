@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -19,14 +20,29 @@ class HandleInertiaRequests extends Middleware
     {
 
         return array_merge(parent::share($request), [
+            ...parent::share($request),
             'app' => [
                 'name' => config('app.name'),
             ],
             'user' => fn() => $request->user()
-                ? $request->user()->only('id', 'name', 'email', 'tenant_id')
+                ? $request->user()->only(
+                    'id',
+                    'name',
+                    'email',
+                    'tenant_id',
+                    'role',
+                    'avatar',
+                    'first_name',
+                    'last_name',
+                    'middle_name'
+                )
                 : null,
             'flash' => [
                 'message' => fn() => $request->session()->get('message'),
+            ],
+            'ziggy' => fn() => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
             ],
         ]);
     }
