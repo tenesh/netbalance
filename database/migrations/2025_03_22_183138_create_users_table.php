@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('password');
             $table->enum('type',  array_column(UserType::cases(), 'value'));
             $table->string('role');
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->foreignUuid('tenant_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
