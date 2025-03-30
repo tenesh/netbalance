@@ -139,5 +139,8 @@ return [
     */
 
     'default_admin_email' => env('DEFAULT_ADMIN_EMAIL'),
-    'default_admin_password' => env('DEFAULT_ADMIN_PASSWORD')
+    'default_admin_password' => env('DEFAULT_ADMIN_PASSWORD'),
+    'default_admin_name' => env('DEFAULT_ADMIN_NAME'),
+    'default_admin_firstname' => env('DEFAULT_ADMIN_FIRSTNAME'),
+    'default_admin_lastname' => env('DEFAULT_ADMIN_LASTNAME'),
 ];
