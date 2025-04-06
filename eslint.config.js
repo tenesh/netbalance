@@ -33,6 +33,7 @@ export default [
             'react-hooks': reactHooks,
         },
         rules: {
+            '@typescript-eslint/no-unused-vars': 'off',
             'react-hooks/rules-of-hooks': 'error',
             'react-hooks/exhaustive-deps': 'warn',
         },

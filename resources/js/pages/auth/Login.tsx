@@ -1,110 +1,105 @@
 import AuthLayout from '@/layouts/AuthLayout';
-import { useForm } from '@inertiajs/react';
-import { ReactNode } from 'react';
+import { Button, Checkbox, Input } from '@heroui/react';
+import { Link, useForm } from '@inertiajs/react';
+import { FormEvent, ReactNode } from 'react';
 
 const LoginPage = () => {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, clearErrors } = useForm<{
+        email: string;
+        password: string;
+        remember: boolean;
+    }>({
         email: '',
         password: '',
         remember: false,
     });
 
-    function submit(e: Event) {
+    const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post('/login');
-    }
+    };
 
     return (
         <>
             <div className="flex h-full w-full flex-col items-center gap-5 p-10 md:p-20">
                 <div className="mb-[64px] flex flex-col gap-[12px] text-center">
-                    <h1 className="">Sign In</h1>
-                    <p className="text-secondary-main body2 max-w-xl text-center">
+                    <h1 className="text-3xl">Sign In</h1>
+                    <p className="max-w-xl text-center text-sm text-secondary-500">
                         Back in action. Let’s move your business forward.
                     </p>
                 </div>
                 <form onSubmit={submit} className="flex w-full max-w-md flex-col gap-5">
                     <div className="flex w-full flex-col">
-                        <label htmlFor="email" className="w-full">
-                            Email
-                        </label>
-                        <input
-                            type="text"
-                            name="email"
-                            id="email"
+                        <Input
+                            label="Email"
+                            type="email"
                             placeholder="example@company.com"
                             value={data.email}
-                            onChange={(e) => setData('email', e.target.value)}
+                            onValueChange={(value) => {
+                                clearErrors('email');
+                                setData('email', value);
+                            }}
+                            isInvalid={!!errors.email}
+                            errorMessage={errors.email}
                         />
-                        {errors.email && (
-                            <div className="input-error">
-                                <p>{errors.email}</p>
-                            </div>
-                        )}
                     </div>
                     <div className="flex w-full flex-col">
-                        <label htmlFor="password" className="w-full">
-                            Password
-                        </label>
-                        <input
-                            className="w-full"
+                        <Input
+                            label="Password"
                             type="password"
-                            name="password"
-                            id="password"
                             placeholder="Enter your password"
                             value={data.password}
-                            onChange={(e) => setData('password', e.target.value)}
+                            onValueChange={(value) => {
+                                clearErrors('password');
+                                setData('password', value);
+                            }}
+                            isInvalid={!!errors.password}
+                            errorMessage={errors.password}
                         />
-                        {errors.password && (
-                            <div className="input-error">
-                                <p>{errors.password}</p>
-                            </div>
-                        )}
                     </div>
-                    <div className="flex w-full justify-between">
+                    <div className="flex w-full items-center justify-between gap-2">
                         <div className="flex gap-2">
-                            <input
-                                type="checkbox"
-                                name="remember"
-                                id="remember"
-                                checked={data.remember}
-                                onChange={(e) => setData('remember', e.target.checked)}
-                            />
-                            <label htmlFor="remember"> Keep me logged in </label>
+                            <Checkbox
+                                defaultSelected
+                                isSelected={data.remember}
+                                onValueChange={() => setData('remember', !data.remember)}
+                                size="sm"
+                            >
+                                Keep me logged in
+                            </Checkbox>
                         </div>
-                        <a
+                        <Link
                             href={route('password.request')}
-                            className="text-primary-main hover:text-primary-dark mb-1 self-end text-sm underline"
+                            className="hover:text-primary-dark self-end text-sm text-primary-500"
                         >
                             Forgot password?
-                        </a>
+                        </Link>
                     </div>
-                    <button
-                        className="bg-primary-main hover:bg-primary-dark min-w-[120px] self-start px-3 py-1.5 text-white"
-                        type="submit"
-                        disabled={processing}
-                    >
+                    <Button type="submit" disabled={processing} color="primary" size="md" isLoading={processing}>
                         Sign In
-                    </button>
+                    </Button>
                 </form>
                 <div className="md:divide-secondary-lighter mt-auto flex w-full max-w-md flex-col gap-2 text-center md:flex-row md:gap-0 md:divide-x">
-                    <p className="text-secondary-main hover:text-secondary-dark w-full text-sm">
+                    <p className="hover:text-secondary-dark w-full text-sm text-secondary-500">
                         &#169; 2025 netbalance
                     </p>
-                    <a href={route('policy')} className="text-secondary-main hover:text-secondary-dark w-full text-sm">
+                    <Link
+                        href={route('policy')}
+                        className="hover:text-secondary-dark w-full text-sm text-secondary-500"
+                    >
                         Privacy Policy
-                    </a>
-                    <a href={route('terms')} className="text-secondary-main hover:text-secondary-dark w-full text-sm">
+                    </Link>
+                    <Link href={route('terms')} className="hover:text-secondary-dark w-full text-sm text-secondary-500">
                         Terms & Conditions
-                    </a>
+                    </Link>
                 </div>
             </div>
-            <div className="hidden h-full w-full flex-col items-center gap-15 bg-[#f5f2fa] pt-20 lg:flex">
-                <div className="flex flex-col gap-[12px] px-20 text-center">
-                    <h2 className="text-primary-main">netbalance</h2>
-                    <p className="text-secondary-main body2 max-w-xl text-center">
+            <div className="gap-15 hidden h-full w-full flex-col items-center bg-secondary-50 pt-20 lg:flex">
+                <div className="mb-10 flex flex-col gap-[12px] px-20 text-center">
+                    <h2 className="text-2xl text-primary-500">netbalance</h2>
+                    <p className="max-w-xl text-center text-sm text-secondary-500">
                         Streamline operations, optimize inventory, and gain powerful insights—all from one intuitive
-                        plathtmlForm that empowers your business to grow with clarity and control.
+                        platform that empowers your business to grow with clarity and control.
                     </p>
                 </div>
                 <div className="relative h-full w-full overflow-hidden px-20">

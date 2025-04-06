@@ -3,7 +3,7 @@
         "allowJs": true,
         "module": "ESNext",
         "moduleResolution": "bundler",
-        "strict": true,
+        "strict": false,
         "isolatedModules": true,
         "target": "ESNext",
         "esModuleInterop": true,

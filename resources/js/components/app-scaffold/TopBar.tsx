@@ -1,21 +1,19 @@
+import { Badge, Button } from '@heroui/react';
 import { Bell, Menu } from 'lucide-react';
 
 const TopBar = ({ sideBarToggleOpen }: { sideBarToggleOpen: () => void }) => {
     return (
         <div className="flex min-h-[76px] flex-col items-center justify-between border-b border-neutral-200 px-6 xl:flex-row">
             <div className="flex h-full w-full items-center justify-between">
-                <button
-                    className="block border border-neutral-200 p-2 hover:bg-neutral-100 xl:hidden"
-                    onClick={(e) => {
-                        sideBarToggleOpen();
-                    }}
-                >
+                <Button size="md" variant="ghost" isIconOnly className="xl:hidden">
                     <Menu size={18} />
-                </button>
+                </Button>
                 <div className="ml-auto flex items-center gap-4">
-                    <button className="border border-neutral-200 p-2 hover:bg-neutral-100">
-                        <Bell size={18} />
-                    </button>
+                    <Badge color="primary" content={5} shape="circle" size="lg">
+                        <Button size="md" variant="ghost" isIconOnly>
+                            <Bell size={18} />
+                        </Button>
+                    </Badge>
                 </div>
             </div>
         </div>

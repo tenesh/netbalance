@@ -11,7 +11,7 @@
     @routes
     @inertiaHead
 </head>
-<body>
+<body class="antialiased font-display">
 @inertia
 </body>
 </html>
