@@ -126,7 +126,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Admin Account (Seeder)
+    | Default Landlord Account (Seeder)
     |--------------------------------------------------------------------------
     |
     | These values are used when seeding the application with a default
@@ -138,9 +138,9 @@ return [
     |
     */
 
-    'default_admin_email' => env('DEFAULT_ADMIN_EMAIL'),
-    'default_admin_password' => env('DEFAULT_ADMIN_PASSWORD'),
-    'default_admin_name' => env('DEFAULT_ADMIN_NAME'),
-    'default_admin_firstname' => env('DEFAULT_ADMIN_FIRSTNAME'),
-    'default_admin_lastname' => env('DEFAULT_ADMIN_LASTNAME'),
+    'default_landlord_email' => env('DEFAULT_LANDLORD_EMAIL'),
+    'default_landlord_password' => env('DEFAULT_LANDLORD_PASSWORD'),
+    'default_landlord_name' => env('DEFAULT_LANDLORD_NAME'),
+    'default_landlord_firstname' => env('DEFAULT_LANDLORD_FIRSTNAME'),
+    'default_landlord_lastname' => env('DEFAULT_LANDLORD_LASTNAME'),
 ];

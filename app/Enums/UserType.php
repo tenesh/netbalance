@@ -6,14 +6,15 @@ namespace App\Enums;
 
 enum UserType: string
 {
-    case ADMIN = 'admin';
-    case CUSTOMER = 'customer';
+    case LANDLORD = 'landlord';
+    case TENANT = 'tenant';
 
     public function label(): string
     {
+
         return match ($this) {
-            self::ADMIN => 'Admin',
-            self::CUSTOMER => 'Customer',
+            self::LANDLORD => 'Landlord',
+            self::TENANT => 'Tenant',
         };
     }
 }

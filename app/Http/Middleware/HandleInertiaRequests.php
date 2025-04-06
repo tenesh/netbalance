@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\LandlordRole;
+use App\Enums\TenantRole;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -19,24 +21,44 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
 
+        $role = $request->user()
+            ? $request->user()->getRoleNames()->first()
+            : [];
+        $roleLabel = null;
+
+        if ($role) {
+            $roleLabel = $request->user()->isLandlord()
+                ? LandlordRole::tryFrom($role)?->label()
+                : TenantRole::tryFrom($role)?->label();
+        }
+
         return array_merge(parent::share($request), [
             ...parent::share($request),
             'app' => [
                 'name' => config('app.name'),
             ],
-            'user' => fn() => $request->user()
-                ? $request->user()->only(
-                    'id',
-                    'name',
-                    'email',
-                    'tenant_id',
-                    'role',
-                    'avatar',
-                    'first_name',
-                    'last_name',
-                    'middle_name'
-                )
-                : null,
+            'auth' => [
+                'user' => fn() => $request->user()
+                    ? $request->user()->only(
+                        'id',
+                        'name',
+                        'email',
+                        'tenant_id',
+                        'avatar',
+                        'first_name',
+                        'last_name',
+                        'middle_name',
+                        'type',
+                    )
+                    : null,
+                'role' => [
+                    'label' => $roleLabel,
+                    'value' => $role,
+                ],
+                'permissions' => fn() => $request->user()
+                    ? $request->user()->getAllPermissions()->pluck('name')
+                    : null,
+            ],
             'flash' => [
                 'message' => fn() => $request->session()->get('message'),
             ],

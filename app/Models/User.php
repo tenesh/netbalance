@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\AdminRole;
 use App\Enums\UserType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -12,14 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasUuids, HasFactory, Notifiable;
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
+    use HasUuids, HasFactory, Notifiable, HasRoles;
 
     protected $fillable = [
         'name',
@@ -29,7 +25,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'type',
-        'role',
         'avatar',
     ];
 
@@ -44,14 +39,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'type' => UserType::class,
         ];
     }
 
     public static function booted(): void
     {
-
         static::creating(function ($model) {
-
             $model->id = Str::uuid();
         });
     }
@@ -88,20 +82,13 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
-    protected function role(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => AdminRole::tryFrom($value)->label(),
-        );
-    }
-
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
     }
 
-    public function isAdmin(): bool
+    public function isLandlord(): bool
     {
-        return $this->type === UserType::ADMIN->value;
+        return $this->type === UserType::LANDLORD;
     }
 }

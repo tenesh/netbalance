@@ -44,9 +44,9 @@ class LoginController extends Controller
             $user = $request->user();
 
             return redirect()->intended(
-                $user->isAdmin()
-                    ? route('admin.dashboard')
-                    : route('customer.dashboard')
+                $user->is_admin
+                    ? route('landlord.dashboard')
+                    : route('tenant.dashboard')
             );
         }
 

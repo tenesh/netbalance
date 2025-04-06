@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AuthLayout from '@/modules/shared/layouts/AuthLayout.svelte';
+    import Layout from '@/modules/auth/layouts/Layout.svelte';
     import { route } from 'ziggy-js';
     import { useForm } from '@inertiajs/svelte';
 
@@ -15,7 +15,7 @@
     }
 </script>
 
-<AuthLayout>
+<Layout>
     <div class="flex w-full h-full">
         <div class="flex flex-col w-full h-full items-center p-10 gap-5 md:p-20">
             <div class="flex flex-col text-center gap-[12px] mb-[64px]">
@@ -101,7 +101,7 @@
             </div>
         </div>
     </div>
-</AuthLayout>
+</Layout>
 
 <style lang="css">
     .hero {

@@ -13,15 +13,12 @@ class Tenant extends Model
 {
     use HasUuids, HasFactory;
 
-    public $incrementing = false;
-
-    protected $keyType = 'string';
-
     protected $fillable = [
         'name',
         'slug',
         'email',
         'phone',
+        'avatar',
         'timezone',
         'locale',
     ];

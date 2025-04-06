@@ -11,7 +11,7 @@ return new class extends Migration {
 
         Schema::create('users', function (Blueprint $table) {
 
-            $table->uuid('id')->primary();
+            $table->uuid('id')->primary()->unique();;
             $table->string('name');
             $table->string('first_name');
             $table->string('middle_name');
@@ -19,8 +19,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('type',  array_column(UserType::cases(), 'value'));
-            $table->string('role');
+            $table->enum('type', array_column(UserType::cases(), 'value'));
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->foreignUuid('tenant_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
