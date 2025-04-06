@@ -8,7 +8,7 @@ const TenantsPage = () => {
         <>
             <div className="flex items-center justify-between">
                 <h5>Tenants</h5>
-                <Button onClick={() => router.visit(route('landlord.tenants.create'))} color="primary" size="md">
+                <Button onPress={() => router.visit(route('landlord.tenants.create'))} color="primary" size="md">
                     Add new
                 </Button>
             </div>

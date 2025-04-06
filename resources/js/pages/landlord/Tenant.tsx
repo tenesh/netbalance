@@ -201,7 +201,7 @@ const TenantPage = () => {
                             {data.country &&
                                 Object.entries(getTimezonesForCountry(data.country))
                                     .sort(([, a], [, b]) => a.name.localeCompare(b.name))
-                                    .map(([code, timezone]) => (
+                                    .map(([_, timezone]) => (
                                         <SelectItem key={timezone.name}>{timezone.name}</SelectItem>
                                     ))}
                         </Select>
