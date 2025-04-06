@@ -6,11 +6,12 @@
 
     <title>netbalance</title>
 
-    @vite(['resources/js/app.ts'])
+    @viteReactRefresh
+    @vite(['resources/js/app.tsx'])
     @routes
     @inertiaHead
 </head>
-<body class="antialiased font-display">
+<body>
 @inertia
 </body>
 </html>

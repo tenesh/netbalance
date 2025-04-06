@@ -1,5 +1,5 @@
 import type { User } from '@/modules/user/types/user';
-import { Config } from 'ziggy-js';
+import type { Config } from 'ziggy-js';
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     app: {

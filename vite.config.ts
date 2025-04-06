@@ -1,33 +1,33 @@
-import { svelte } from '@sveltejs/vite-plugin-svelte';
-import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import * as path from 'path';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: [
-                'resources/js/app.ts'
-            ],
-            refresh: true
+            input: ['resources/js/app.tsx'],
+            refresh: true,
         }),
         tailwindcss(),
-        svelte()
+        react(),
     ],
+    esbuild: {
+        jsx: 'automatic',
+    },
     resolve: {
         alias: {
-            $lib: '/resources/js/lib',
-            'ziggy-js': path.resolve('vendor/tightenco/ziggy')
-        }
+            'ziggy-js': path.resolve('vendor/tightenco/ziggy'),
+        },
     },
     server: {
         cors: {
             origin: ['http://netbalance.local', 'http://app.netbalance.local'],
-            credentials: true
+            credentials: true,
         },
         hmr: {
-            host: 'localhost'
-        }
-    }
+            host: 'localhost',
+        },
+    },
 });

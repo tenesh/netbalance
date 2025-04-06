@@ -1,5 +1,4 @@
 {
-    "extends": "@tsconfig/svelte/tsconfig.json",
     "compilerOptions": {
         "allowJs": true,
         "module": "ESNext",
@@ -11,17 +10,17 @@
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,
         "noEmit": true,
+        "noImplicitAny": true,
         "baseUrl": ".",
+        "jsx": "react-jsx",
         "paths": {
-            "$lib": ["./resources/js/lib"],
-            "$lib/*": ["./resources/js/lib/*"],
             "@/*": ["./resources/js/*"],
             "ziggy-js": ["./vendor/tightenco/ziggy"]
         }
     },
     "include": [
         "resources/js/**/*.ts",
-        "resources/js/**/*.svelte",
+        "resources/js/**/*.tsx",
         "resources/js/**/*.d.ts"
     ]
 }

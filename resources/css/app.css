@@ -2,17 +2,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Figtree:ital,wght@0,300..900;1,300..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 /* Custom design tokens and utilities */
-@import './theme.css';
 @import './typography.css';
 @import './components.css';
 
 /* Tailwind core */
 @import 'tailwindcss';
+/*@config "../../tailwind.config.js"*/
 
 /* Source scanning for class usage (Tailwind v4) */
 @source "../views/**/*.blade.php";
-@source "../js/**/*.svelte";
+@source "../js/**/*.tsx";
 
 /* Plugins */
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
+
+@theme {
+    /* Font Families */
+    --font-display: 'Archivo', 'sans-serif';
+
+    /* Primary */
+    --color-primary-lighter: oklch(91.63% 0.042 285.54);
+    --color-primary-light: oklch(83.14% 0.0856 280.71);
+    --color-primary-main: oklch(57.94% 0.1746 275.46);
+    --color-primary-dark: oklch(45.27% 0.1809 272.64);
+    --color-primary-darker: oklch(24.09% 0.1572 264.2);
+
+    /* Secondary */
+    --color-secondary-lighter: oklch(91.63% 0.042 285.54);
+    --color-secondary-light: oklch(82.98% 0.0446 283.96);
+    --color-secondary-main: oklch(48.4% 0.0449 281.38);
+    --color-secondary-dark: oklch(39.96% 0.0438 280.8);
+    --color-secondary-darker: oklch(22.76% 0.0447 276.6);
+
+    /* Grey Scale */
+    --color-grey-50: oklch(98.34% 0.0097 305.41);
+    --color-grey-100: oklch(96.57% 0.0111 303.11);
+    --color-grey-200: oklch(94.96% 0.0095 299.24);
+    --color-grey-300: oklch(93.26% 0.0112 303.11);
+    --color-grey-400: oklch(91.35% 0.0074 312.3);
+    --color-grey-500: oklch(88.89% 0.0097 299.22);
+    --color-grey-600: oklch(82.83% 0.0153 294.41);
+    --color-grey-700: oklch(57.01% 0.0152 290.51);
+    --color-grey-800: oklch(39.75% 0.015 285.7);
+    --color-grey-900: oklch(22.38% 0.0077 285.76);
+
+    --color-white: oklch(100% 0 0);
+    --background-default: oklch(100% 0 0);
+
+    /* Success */
+    --color-success-lighter: oklch(94.66% 0.1005 141.47);
+    --color-success-light: oklch(90.36% 0.1086 142.02);
+    --color-success-main: oklch(55.34% 0.1574 144.82);
+    --color-success-dark: oklch(46.8% 0.1459 145.3);
+    --color-success-darker: oklch(29.96% 0.0934 145.29);
+
+    /* Info */
+    --color-info-lighter: oklch(95.36% 0.0378 213.06);
+    --color-info-light: oklch(90.7% 0.0793 211.91);
+    --color-info-main: oklch(55.92% 0.0969 210.61);
+    --color-info-dark: oklch(47.43% 0.082257 210.794);
+    --color-info-darker: oklch(30.52% 0.0529 210.66);
+
+    /* Warning */
+    --color-warning-lighter: oklch(95.91% 0.0253 59.92);
+    --color-warning-light: oklch(91.62% 0.0556 62.65);
+    --color-warning-main: oklch(57.83% 0.130755 64.0454);
+    --color-warning-dark: oklch(48.97% 0.111 63.69);
+    --color-warning-darker: oklch(31.45% 0.071372 63.6016);
+
+    /* Error */
+    --color-error-lighter: oklch(95.96% 0.02 28.9);
+    --color-error-light: oklch(91.83% 0.041771 25.2259);
+    --color-error-main: oklch(59.39% 0.2045 27.82);
+    --color-error-dark: oklch(50.6% 0.1927 27.7);
+    --color-error-darker: oklch(32.75% 0.1336 27.32);
+}

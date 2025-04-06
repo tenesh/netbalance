@@ -7,8 +7,7 @@
     "tabWidth": 4,
     "plugins": [
         "prettier-plugin-organize-imports",
-        "prettier-plugin-tailwindcss",
-        "prettier-plugin-svelte"
+        "prettier-plugin-tailwindcss"
     ],
     "tailwindFunctions": ["clsx", "cn"],
     "overrides": [
@@ -16,12 +15,6 @@
             "files": "**/*.yml",
             "options": {
                 "tabWidth": 2
-            }
-        },
-        {
-            "files": "*.svelte",
-            "options": {
-                "parser": "svelte"
             }
         }
     ]
