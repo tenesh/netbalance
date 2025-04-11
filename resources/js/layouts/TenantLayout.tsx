@@ -1,6 +1,6 @@
-import { Shell } from '@/components/app-scaffold/Shell';
-import { SideBar } from '@/components/app-scaffold/SideBar';
-import { TopBar } from '@/components/app-scaffold/TopBar';
+import { Shell } from '@/components/scaffolds/app/Shell';
+import { SideBar } from '@/components/scaffolds/app/SideBar';
+import { TopBar } from '@/components/scaffolds/app/TopBar';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 

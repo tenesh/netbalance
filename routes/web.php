@@ -33,7 +33,7 @@ Route::domain(parse_url(config('app.frontend_url'), PHP_URL_HOST))->group(functi
 
     Route::prefix('admin')->middleware(['auth', 'ensure_landlord'])->group(function () {
 
-        Route::get('/', fn() => Inertia::render('landlord/Dashboard'))->name('landlord.dashboard');
+        Route::get('/', Landlord\DashboardController::class)->name('landlord.dashboard');
 
         Route::prefix('/tenants')->name('landlord.tenants.')->group(function () {
             Route::get('/', [Landlord\TenantController::class, 'index'])->name('index');

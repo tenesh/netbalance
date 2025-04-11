@@ -23,6 +23,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'ensure_landlord' => EnsureLandlord::class,
             'ensure_tenant' => EnsureTenant::class,
         ]);
+
+        $middleware->validateCsrfTokens(except: [
+            'paddle/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -8,17 +8,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Laravel\Paddle\Billable;
 
 class Tenant extends Model
 {
-    use HasUuids, HasFactory;
+    use HasUuids, HasFactory, Billable;
 
     protected $fillable = [
         'name',
         'slug',
         'email',
         'phone',
-        'avatar',
+        'logo',
         'timezone',
         'locale',
     ];

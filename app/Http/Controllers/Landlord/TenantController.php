@@ -15,7 +15,7 @@ class TenantController extends Controller
      */
     public function index()
     {
-        return Inertia::render('landlord/Tenants');
+        return Inertia::render('landlord/tenants/index');
     }
 
     /**
@@ -23,7 +23,7 @@ class TenantController extends Controller
      */
     public function create()
     {
-        return Inertia::render('landlord/Tenant');
+        return Inertia::render('landlord/new-tenant/index');
     }
 
     /**
@@ -39,7 +39,7 @@ class TenantController extends Controller
      */
     public function show(Tenant $tenant)
     {
-        return Inertia::render('landlord/Tenant');
+        return Inertia::render('landlord/tenant/index');
     }
 
     /**

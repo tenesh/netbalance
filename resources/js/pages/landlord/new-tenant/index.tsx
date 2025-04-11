@@ -2,8 +2,9 @@ import LandlordLayout from '@/layouts/LandlordLayout';
 import { Button, Input, Select, SelectItem } from '@heroui/react';
 import { useForm } from '@inertiajs/react';
 import { getAllCountries, getTimezonesForCountry } from 'countries-and-timezones';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Upload } from 'lucide-react';
 import { FormEvent, ReactNode } from 'react';
+import { FileInput } from '@/components/elements/FileInput';
 
 const TenantPage = () => {
     const { data, setData, post, processing, errors, clearErrors } = useForm<{
@@ -11,7 +12,7 @@ const TenantPage = () => {
         slug: string;
         email: string;
         phone: string;
-        avatar: string;
+        logo: string;
         street_name_one: string;
         street_name_two: string;
         city: string;
@@ -20,12 +21,13 @@ const TenantPage = () => {
         country: string;
         timezone: string;
         is_active: boolean;
+        subscription_plan: string;
     }>({
         name: '',
         slug: '',
         email: '',
         phone: '',
-        avatar: '',
+        logo: '',
         street_name_one: '',
         street_name_two: '',
         city: '',
@@ -104,6 +106,12 @@ const TenantPage = () => {
                             }}
                             isInvalid={!!errors.phone}
                             errorMessage={errors.phone}
+                        />
+                    </div>
+                    <div className="col-span-full lg:col-span-2">
+                        <FileInput
+                            label="Logo"
+                            onFileChange={() => console.log('Changed')}
                         />
                     </div>
                     <p className="col-span-full mt-6 w-full font-medium">Address</p>
@@ -192,6 +200,24 @@ const TenantPage = () => {
                     <div className="col-span-full lg:col-span-2">
                         <Select
                             label="Timezone"
+                            defaultSelectedKeys={new Set([data.timezone])}
+                            onSelectionChange={(value) => {
+                                clearErrors('timezone');
+                                setData('timezone', value.currentKey);
+                            }}
+                        >
+                            {data.country &&
+                                Object.entries(getTimezonesForCountry(data.country))
+                                    .sort(([, a], [, b]) => a.name.localeCompare(b.name))
+                                    .map(([_, timezone]) => (
+                                        <SelectItem key={timezone.name}>{timezone.name}</SelectItem>
+                                    ))}
+                        </Select>
+                    </div>
+                    <p className="col-span-full mt-6 w-full font-medium">Subscriptions</p>
+                    <div className="col-span-full lg:col-span-2">
+                        <Select
+                            label="Plan"
                             defaultSelectedKeys={new Set([data.timezone])}
                             onSelectionChange={(value) => {
                                 clearErrors('timezone');

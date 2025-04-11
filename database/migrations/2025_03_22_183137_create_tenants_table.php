@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('logo')->nullable();
             $table->string('timezone')->default('UTC');
             $table->string('locale')->default('en');
             $table->boolean('is_active')->default(true);
