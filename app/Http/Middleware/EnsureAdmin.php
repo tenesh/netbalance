@@ -6,13 +6,13 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureTenant
+class EnsureAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
 
-        if ($request->user()->is_admin) {
-            return redirect()->route('app.admin_url');
+        if (! $request->user()->is_admin) {
+            return redirect()->route('app.tenant_url');
         }
 
         return $next($request);

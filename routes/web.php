@@ -1,54 +1,53 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Landlord;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::domain(parse_url(config('app.url'), PHP_URL_HOST))->group(function () {
+Route::middleware(['guest'])->group(function () {
 
-    Route::get('/', fn() => Inertia::render('public/Home'))->name('home');
-    Route::get('/about-us', fn() => Inertia::render('public/About'))->name('about');
-    Route::get('/terms', fn() => Inertia::render('public/Terms'))->name('terms');
-    Route::get('/policy', fn() => Inertia::render('public/Policy'))->name('policy');
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store']);
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('password.email');
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'store'])->name('password.reset');
+    Route::post('/reset-password', [ResetPasswordController::class, 'store'])->name('password.update');
 });
 
-Route::domain(parse_url(config('app.frontend_url'), PHP_URL_HOST))->group(function () {
+Route::middleware(['auth'])->group(
+    function () {
 
-    Route::middleware(['guest'])->group(function () {
+        Route::get('/', DashboardController::class)->name('dashboard');
+        Route::post('/logout', LogoutController::class)->name('logout');
+        Route::post('/settings', fn () => dd('Settings'))->name('settings.index');
+        Route::get('/imports', fn () => dd('Imports'))->name('imports.index');
+        Route::get('/exports', fn () => dd('Exports'))->name('exports.index');
+    }
+);
 
-        Route::get('/login', [LoginController::class, 'create'])->name('login');
-        Route::post('/login', [LoginController::class, 'store']);
+Route::middleware(['auth', 'ensure_tenant'])->group(
+    function () {
 
-        Route::get('/forgot-password', fn() => Inertia::render('auth/ForgotPassword'))->name('password.request');
+        Route::get('/billing', fn () => dd('Billing'))->name('tenant.billing.index');
+    }
+);
 
-        Route::get('/reset-password/{token}', fn($token) => Inertia::render('auth/ResetPassword', ['token' => $token]))
-            ->name('password.reset');
-    });
+Route::middleware(['auth', 'ensure_admin'])->group(
+    function () {
 
-    Route::middleware(['auth', 'ensure_tenant'])->group(function () {
+        Route::get('/tenants', [TenantController::class, 'index'])->name('admin.tenants.index');
+        Route::get('/tenants/create', [TenantController::class, 'create'])->name('admin.tenants.create');
+        Route::post('/tenants/create', [TenantController::class, 'store'])->name('admin.tenants.store');
+        Route::get('/tenants/{id}', [TenantController::class, 'show'])->name('admin.tenants.show');
+        Route::put('/tenants/{id}', [TenantController::class, 'update'])->name('admin.tenants.update');
+        Route::delete('/tenants/{id}', [TenantController::class, 'destroy'])->name('admin.tenants.destroy');
 
-        Route::get('/', fn() => Inertia::render('tenant/Dashboard'))->name('tenant.dashboard');
-    });
+        Route::get('/users', fn () => dd('Users'))->name('admin.users.index');
 
-    Route::prefix('admin')->middleware(['auth', 'ensure_landlord'])->group(function () {
-
-        Route::get('/', Landlord\DashboardController::class)->name('landlord.dashboard');
-
-        Route::prefix('/tenants')->name('landlord.tenants.')->group(function () {
-            Route::get('/', [Landlord\TenantController::class, 'index'])->name('index');
-            Route::get('/create', [Landlord\TenantController::class, 'create'])->name('create');
-            Route::post('/create', [Landlord\TenantController::class, 'store'])->name('store');
-            Route::get('/{id}', [Landlord\TenantController::class, 'show'])->name('show');
-            Route::put('/{id}', [Landlord\TenantController::class, 'update'])->name('update');
-            Route::delete('/{id}', [Landlord\TenantController::class, 'destroy'])->name('destroy');
-        });
-
-        Route::get('/users', fn() => Inertia::render('landlord/Dashboard'))->name('landlord.users');
-        Route::get('/billing', fn() => Inertia::render('landlord/Dashboard'))->name('landlord.billing');
-        Route::get('/import-export', fn() => Inertia::render('landlord/Dashboard'))->name('landlord.import-export');
-        Route::get('/logs', fn() => Inertia::render('landlord/Dashboard'))->name('landlord.logs');
-        Route::get('/settings', fn() => Inertia::render('landlord/Dashboard'))->name('landlord.settings');
-        Route::get('/logout', fn() => Inertia::render('landlord/Dashboard'))->name('landlord.logout');
-    });
-});
+        Route::get('/logs', fn () => dd('Logs'))->name('admin.logs.index');
+    }
+);

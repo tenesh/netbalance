@@ -12,7 +12,7 @@ use Laravel\Paddle\Billable;
 
 class Tenant extends Model
 {
-    use HasUuids, HasFactory, Billable;
+    use Billable, HasFactory, HasUuids;
 
     protected $fillable = [
         'name',

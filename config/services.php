@@ -35,4 +35,18 @@ return [
         ],
     ],
 
+    'paddle' => [
+        'api' => [
+            'key' => env('PADDLE_API_KEY'),
+            'base_url' => env('PADDLE_API_BASE_URL'),
+        ],
+        'client' => [
+            'token' => env('PADDLE_CLIENT_SIDE_TOKEN'),
+        ],
+        'webhook' => [
+            'secret' => env('PADDLE_WEBHOOK_SECRET'),
+        ],
+        'sandbox' => env('PADDLE_SANDBOX'),
+    ],
+
 ];

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\UserType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -15,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasUuids, HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, HasUuids, Notifiable;
 
     protected $fillable = [
         'name',
@@ -24,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_name',
         'email',
         'password',
-        'type',
+        'is_admin',
         'avatar',
     ];
 
@@ -39,19 +38,22 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'type' => UserType::class,
+            'is_admin' => 'boolean',
         ];
     }
 
     public static function booted(): void
     {
+
         static::creating(function ($model) {
+
             $model->id = Str::uuid();
         });
     }
 
     protected function name(): Attribute
     {
+
         return Attribute::make(
             get: fn (string $value) => strtolower($value),
             set: fn (string $value) => strtolower($value),
@@ -60,6 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected function firstName(): Attribute
     {
+
         return Attribute::make(
             get: fn (string $value) => ucfirst($value),
             set: fn (string $value) => strtolower($value),
@@ -68,6 +71,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected function middleName(): Attribute
     {
+
         return Attribute::make(
             get: fn (string $value) => ucfirst($value),
             set: fn (string $value) => strtolower($value),
@@ -76,6 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected function lastName(): Attribute
     {
+
         return Attribute::make(
             get: fn (string $value) => ucfirst($value),
             set: fn (string $value) => strtolower($value),
@@ -84,11 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function tenant(): BelongsTo
     {
-        return $this->belongsTo(Tenant::class);
-    }
 
-    public function isLandlord(): bool
-    {
-        return $this->type === UserType::LANDLORD;
+        return $this->belongsTo(Tenant::class);
     }
 }

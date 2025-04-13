@@ -7,25 +7,26 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/js/app.tsx'],
-            refresh: true,
+            refresh: true
         }),
-        react(),
+        react()
     ],
     esbuild: {
-        jsx: 'automatic',
+        jsx: 'automatic'
     },
     resolve: {
         alias: {
-            'ziggy-js': path.resolve('vendor/tightenco/ziggy'),
-        },
+            '@': path.resolve(__dirname, './resources/js'),
+            'ziggy-js': path.resolve('vendor/tightenco/ziggy')
+        }
     },
     server: {
         cors: {
             origin: ['http://netbalance.local', 'http://app.netbalance.local'],
-            credentials: true,
+            credentials: true
         },
         hmr: {
-            host: 'localhost',
-        },
-    },
+            host: 'localhost'
+        }
+    }
 });

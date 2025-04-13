@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -15,10 +16,10 @@ class LoginController extends Controller
     public function create(): Response
     {
 
-        return Inertia::render('auth/login/index');
+        return Inertia::render('auth/pages/Login');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
         $request->validate([
@@ -41,13 +42,8 @@ class LoginController extends Controller
             $request->boolean('remember')
         )) {
             $request->session()->regenerate();
-            $user = $request->user();
 
-            return redirect()->intended(
-                $user->is_admin
-                    ? route('landlord.dashboard')
-                    : route('tenant.dashboard')
-            );
+            return redirect()->intended(route('dashboard'));
         }
 
         return back()->withErrors([
@@ -55,4 +51,3 @@ class LoginController extends Controller
         ]);
     }
 }
-
