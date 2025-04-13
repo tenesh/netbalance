@@ -23,6 +23,7 @@ class Tenant extends Model
         'locale',
         'street_name_one',
         'street_name_two',
+        'state',
         'city',
         'postal_code',
         'country',

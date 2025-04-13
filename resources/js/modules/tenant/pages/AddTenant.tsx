@@ -1,16 +1,22 @@
-import { FileInput } from '@/components/elements/FileInput';
+import { FileInput, FileInputRef } from '@/components/elements/FileInput';
 import AppLayout from '@/layouts/AppLayout';
 import type { Plan } from '@/modules/types/plan';
 import type { PageProps } from '@/types';
 import { addToast, Button, Input, Select, SelectItem } from '@heroui/react';
 import { useForm, usePage } from '@inertiajs/react';
 import { getAllCountries, getTimezonesForCountry } from 'countries-and-timezones';
-import { FormEvent, ReactNode } from 'react';
+import { FormEvent, ReactNode, useRef, useState } from 'react';
 
 const AddTenantPage = () => {
     const { plans } = usePage().props as PageProps<{
         plans: Plan[];
     }>;
+
+    const [countrySelection, setCountrySelection] = useState<Selection>(new Set([]));
+    const [timezoneSelection, setTimezoneSelection] = useState<Selection>(new Set([]));
+    const [planSelection, setPlanSelection] = useState<Selection>(new Set([]));
+
+    const logoInputRef = useRef<FileInputRef>(null);
 
     const { data, setData, post, processing, errors, clearErrors, reset } = useForm<{
         name: string;
@@ -52,6 +58,12 @@ const AddTenantPage = () => {
                     color: 'success',
                     variant: 'flat',
                 });
+
+                logoInputRef.current?.reset();
+                setCountrySelection(new Set([]));
+                setTimezoneSelection(new Set([]));
+                setPlanSelection(new Set([]));
+
                 reset();
             },
         });
@@ -127,6 +139,7 @@ const AddTenantPage = () => {
                     </div>
                     <div className="col-span-full lg:col-span-2">
                         <FileInput
+                            ref={logoInputRef}
                             label="Logo"
                             fileTypes="image/jpeg,image/png"
                             onFileChange={(file) => {
@@ -221,10 +234,12 @@ const AddTenantPage = () => {
                             label="Country"
                             labelPlacement="outside"
                             placeholder="Select one"
-                            defaultSelectedKeys={new Set([data.country])}
-                            onChange={(e) => {
+                            selectedKeys={countrySelection}
+                            onSelectionChange={(value) => {
+                                setCountrySelection(value);
+                                setTimezoneSelection(new Set([]));
                                 clearErrors('country');
-                                setData('country', e.target.value);
+                                setData('country', value.currentKey);
                             }}
                             isInvalid={!!errors.country}
                             errorMessage={errors.country}
@@ -242,8 +257,9 @@ const AddTenantPage = () => {
                             label="Timezone"
                             labelPlacement="outside"
                             placeholder="Select one"
-                            defaultSelectedKeys={new Set([data.timezone])}
+                            selectedKeys={timezoneSelection}
                             onSelectionChange={(value) => {
+                                setTimezoneSelection(value);
                                 clearErrors('timezone');
                                 setData('timezone', value.currentKey);
                             }}
@@ -266,8 +282,9 @@ const AddTenantPage = () => {
                             label="Plan"
                             labelPlacement="outside"
                             placeholder="Select one"
-                            defaultSelectedKeys={new Set([data.plan])}
+                            selectedKeys={planSelection}
                             onSelectionChange={(value) => {
+                                setPlanSelection(value);
                                 clearErrors('plan');
                                 setData('plan', value.currentKey);
                             }}

@@ -50,6 +50,7 @@ class TenantController extends Controller
             'timezone' => $validated['timezone'],
             'street_name_one' => $validated['street_name_one'],
             'street_name_two' => $validated['street_name_two'],
+            'state' => $validated['state'],
             'city' => $validated['city'],
             'country' => $validated['country'],
             'postal_code' => $validated['postal_code'],
