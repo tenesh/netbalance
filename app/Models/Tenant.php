@@ -19,9 +19,13 @@ class Tenant extends Model
         'slug',
         'email',
         'phone',
-        'logo',
         'timezone',
         'locale',
+        'street_name_one',
+        'street_name_two',
+        'city',
+        'postal_code',
+        'country',
     ];
 
     protected $hidden = [
@@ -47,6 +51,14 @@ class Tenant extends Model
     {
         return Attribute::make(
             get: fn (string $value) => ucfirst($value),
+            set: fn (string $value) => strtolower($value),
+        );
+    }
+
+    protected function slug(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => strtolower($value),
             set: fn (string $value) => strtolower($value),
         );
     }

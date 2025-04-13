@@ -1,4 +1,4 @@
-import type { Types } from '@/modules/user/types';
+import { Types, UserRole } from '@/modules/user/types';
 import type { Config } from 'ziggy-js';
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -11,12 +11,14 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: Types;
         role: {
             label: string;
-            value: LandlordRole | TenantRole;
+            value: UserRole;
         };
         permissions: UserPermissions[];
     };
     ziggy: Config & { location: string };
     flash: {
         message?: string;
+        error?: string;
+        success?: string;
     };
 };

@@ -3,7 +3,7 @@ import { Bell, Menu } from 'lucide-react';
 
 const TopBar = ({ sideBarToggleOpen }: { sideBarToggleOpen: () => void }) => {
     return (
-        <div className="flex min-h-[76px] flex-col items-center justify-between border-b border-neutral-200 px-6 xl:flex-row">
+        <div className="sticky top-0 z-40 flex min-h-[76px] w-full flex-col items-center justify-between border-b border-neutral-200 bg-white px-6 xl:flex-row">
             <div className="flex h-full w-full items-center justify-between">
                 <Button onPress={sideBarToggleOpen} size="md" variant="ghost" isIconOnly className="xl:hidden">
                     <Menu size={18} />

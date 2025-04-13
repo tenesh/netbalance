@@ -37,13 +37,13 @@ export const SideBar = ({ isOpen, toggleOpen, children }: SideBarProps) => {
 
     return (
         <div
-            className={`${isOpen ? 'flex' : 'hidden'} min-w-screen absolute left-0 top-0 z-50 h-screen border-r border-neutral-200 bg-neutral-900/20 xl:relative xl:flex xl:min-w-[253px]`}
+            className={`${isOpen ? 'flex' : 'hidden'} min-w-screen absolute left-0 top-0 z-50 h-screen border-r border-neutral-200 bg-neutral-900/20 xl:relative xl:flex`}
         >
             <div ref={ref} className="flex min-w-[253px] flex-col bg-white">
                 <div className="mx-4 flex h-[76px] items-center border-b border-neutral-200 py-5">
                     <img src="/images/logo.svg" alt="netbalance" className="h-[26px] w-[140px]" />
                 </div>
-                <div className="w-full grow px-4">{children}</div>
+                <div className="w-full grow overflow-y-auto px-4">{children}</div>
                 <div className="mx-4 flex h-[76px] items-center gap-2 border-t border-neutral-200 py-5">
                     <User
                         avatarProps={{

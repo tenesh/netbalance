@@ -2,10 +2,9 @@ import { FileInput } from '@/components/elements/FileInput';
 import AppLayout from '@/layouts/AppLayout';
 import type { Plan } from '@/modules/types/plan';
 import type { PageProps } from '@/types';
-import { Button, Input, Select, SelectItem } from '@heroui/react';
+import { addToast, Button, Input, Select, SelectItem } from '@heroui/react';
 import { useForm, usePage } from '@inertiajs/react';
 import { getAllCountries, getTimezonesForCountry } from 'countries-and-timezones';
-import { ChevronLeft } from 'lucide-react';
 import { FormEvent, ReactNode } from 'react';
 
 const AddTenantPage = () => {
@@ -13,7 +12,7 @@ const AddTenantPage = () => {
         plans: Plan[];
     }>;
 
-    const { data, setData, post, processing, errors, clearErrors } = useForm<{
+    const { data, setData, post, processing, errors, clearErrors, reset } = useForm<{
         name: string;
         slug: string;
         email: string;
@@ -26,7 +25,6 @@ const AddTenantPage = () => {
         postal_code: string;
         country: string;
         timezone: string;
-        is_active: boolean;
         plan: string;
     }>({
         name: '',
@@ -41,24 +39,30 @@ const AddTenantPage = () => {
         postal_code: '',
         country: '',
         timezone: '',
-        is_active: true,
         plan: '',
     });
 
     const submit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post(route('admin.tenants.store'));
+        post(route('admin.tenants.store'), {
+            onSuccess: (page) => {
+                addToast({
+                    title: 'Success',
+                    description: page.props.flash.success,
+                    color: 'success',
+                    variant: 'flat',
+                });
+                reset();
+            },
+        });
     };
 
     return (
         <>
-            <div className="flex items-center gap-4">
-                <Button isIconOnly size="md" onPress={() => window.history.back()}>
-                    <ChevronLeft size={18} />
-                </Button>
-                <h5 className="text-xl">Create a new tenant</h5>
+            <div className="flex flex-col gap-4">
+                <h1 className="text-xl font-medium xl:text-2xl">Create a new tenant</h1>
             </div>
-            <div className="mt-14 flex w-full gap-4 rounded-lg">
+            <div className="mt-10 flex w-full gap-4 rounded-lg">
                 <form onSubmit={submit} className="grid w-full grid-cols-4 gap-6">
                     <p className="col-span-full mt-6 w-full border-b border-b-neutral-200 pb-2 font-medium">Basic</p>
                     <div className="col-span-full lg:col-span-2">
@@ -126,14 +130,14 @@ const AddTenantPage = () => {
                             label="Logo"
                             fileTypes="image/jpeg,image/png"
                             onFileChange={(file) => {
-                                console.log(file);
                                 clearErrors('logo');
                                 if (file) {
                                     setData('logo', file);
                                 }
                             }}
                             description="Allowed *.jpeg, *.jpg, *.png max size of 3 Mb"
-                            error={errors.logo}
+                            isInvalid={!!errors.logo}
+                            errorMessage={errors.logo}
                         />
                     </div>
                     <p className="col-span-full mt-6 w-full border-b border-b-neutral-200 pb-2 font-medium">Address</p>
@@ -222,6 +226,8 @@ const AddTenantPage = () => {
                                 clearErrors('country');
                                 setData('country', e.target.value);
                             }}
+                            isInvalid={!!errors.country}
+                            errorMessage={errors.country}
                         >
                             {Object.entries(getAllCountries())
                                 .sort(([, a], [, b]) => a.name.localeCompare(b.name))
@@ -241,6 +247,8 @@ const AddTenantPage = () => {
                                 clearErrors('timezone');
                                 setData('timezone', value.currentKey);
                             }}
+                            isInvalid={!!errors.timezone}
+                            errorMessage={errors.timezone}
                         >
                             {data.country &&
                                 Object.entries(getTimezonesForCountry(data.country))
@@ -263,6 +271,8 @@ const AddTenantPage = () => {
                                 clearErrors('plan');
                                 setData('plan', value.currentKey);
                             }}
+                            isInvalid={!!errors.plan}
+                            errorMessage={errors.plan}
                         >
                             {plans &&
                                 Object.entries(plans).map(([_, plan]) => (

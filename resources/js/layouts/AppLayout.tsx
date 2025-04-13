@@ -22,7 +22,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
     const { auth } = usePage().props as PageProps;
 
     return (
-        <Shell>
+        <Shell class="">
             <SideBar isOpen={sideBarOpen} toggleOpen={() => setSideBarOpen(false)}>
                 <SideBarMenu title="manage">
                     <SideBarMenuItem url="dashboard" label="dashboard" matchUrl="dashboard">
@@ -70,9 +70,9 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                     </SideBarMenuItem>
                 </SideBarMenu>
             </SideBar>
-            <div className="flex grow flex-col">
+            <div className="relative flex h-screen w-full flex-col overflow-y-auto">
                 <TopBar sideBarToggleOpen={() => setSideBarOpen(true)} />
-                <div className="m-auto flex h-full w-full max-w-[1440px] flex-col p-6 md:px-10">{children}</div>
+                <div className="mx-auto flex w-full max-w-[1440px] flex-col p-10 md:px-10">{children}</div>
             </div>
         </Shell>
     );

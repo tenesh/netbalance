@@ -5,12 +5,9 @@ namespace App\Policies;
 use App\Enums\UserPermission;
 use App\Models\Tenant;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TenantPolicy
 {
-    use HandlesAuthorization;
-
     public function viewAny(User $user): bool
     {
 
